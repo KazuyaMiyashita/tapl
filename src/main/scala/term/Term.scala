@@ -46,7 +46,6 @@ case class Pred(term: Term) extends Term {
   }
   override def isNormalForm: Boolean = term match {
     case Zero => true
-    // case Succ(t: Term) => t.isNormalForm
     case _ => false
   }
 }
