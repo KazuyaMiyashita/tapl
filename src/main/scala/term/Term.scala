@@ -3,7 +3,7 @@ package term
 sealed trait Term {
   def evalOnce: Term
   def isNormalForm: Boolean
-  def eval: Term = if (isNormalForm) this else evalOnce.eval
+  def eval: Term = if (isNormalForm) this else evalOnce
 
   def evalStackTrace: List[Term] = {
     def proc(term: Term, acc: List[Term]): (Term, List[Term]) = 
@@ -51,10 +51,7 @@ case class Pred(term: Term) extends Term {
     case Succ(t: Term) => t
     case term => Pred(term.evalOnce)
   }
-  override def isNormalForm: Boolean = term match {
-    case Zero => true
-    case _ => false
-  }
+  override def isNormalForm: Boolean = false
 }
 
 

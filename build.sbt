@@ -10,6 +10,7 @@ lazy val root = (project in file("."))
     name := "tapl-test",
     libraryDependencies += scalaTest % Test,
     // libraryDependencies ++= circe,
+    initialCommands in console := "import term._"
   )
 
 // See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
