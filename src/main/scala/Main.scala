@@ -2,10 +2,11 @@
 import term._
 
 object Main extends App {
-  println("hello")
 
-  val hoge: Term = Pred(Succ(Zero))
+  If(IsZero(Pred(Succ(Zero))), True, False).evalStackTrace.foreach(println)
 
-  println(hoge.evalOnce)
+  println
+
+  Pred(Pred(Pred(Succ(Succ(Succ(Succ(Zero))))))).evalStackTrace.foreach(println)
 
 }
