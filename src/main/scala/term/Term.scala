@@ -3,9 +3,9 @@ package term
 sealed trait Term {
   def evalOnce: Term
   def isNormalForm: Boolean
-  def eval: Term = if (isNormalForm) this else evalOnce
-
-  def evalStackTrace: List[Term] = {
+  
+  final def eval: Term = if (isNormalForm) this else evalOnce
+  final def evalStackTrace: List[Term] = {
     def proc(term: Term, acc: List[Term]): (Term, List[Term]) = 
       if (term.isNormalForm) (term, term :: acc)
       else proc(term.evalOnce, term :: acc)
