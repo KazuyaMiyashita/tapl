@@ -6,10 +6,10 @@ sealed trait Term {
   
   final def eval: Term = if (isNormalForm) this else evalOnce
   final def evalStackTrace: List[Term] = {
-    def proc(term: Term, acc: List[Term]): (Term, List[Term]) = 
-      if (term.isNormalForm) (term, term :: acc)
-      else proc(term.evalOnce, term :: acc)
-    proc(this, Nil)._2.reverse
+    def proc(ts: List[Term]): List[Term] =
+      if (ts.head.isNormalForm) ts
+      else proc(ts.head.evalOnce :: ts)
+    proc(this :: Nil).reverse
   }
 }
 
