@@ -4,7 +4,7 @@ sealed trait Term {
   def evalOnce: Term
   def isNormalForm: Boolean
   
-  final def eval: Term = if (isNormalForm) this else evalOnce
+  final def eval: Term = if (isNormalForm) this else evalOnce.eval
   final def evalStackTrace: List[Term] = {
     def proc(ts: List[Term]): List[Term] =
       if (ts.head.isNormalForm) ts
