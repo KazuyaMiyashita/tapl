@@ -9,7 +9,7 @@ class ZeroSpec extends FlatSpec with Matchers {
   }
 
   "The Zero object" should "not be evaluated" in {
-    Zero.evalOnce shouldEqual Zero
+    Zero.evalOnce shouldEqual None
     Zero.eval shouldEqual Zero
   }
 

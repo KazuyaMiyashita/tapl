@@ -9,7 +9,7 @@ class TrueSpec extends FlatSpec with Matchers {
   }
 
   "The True object" should "not be evaluated" in {
-    True.evalOnce shouldEqual True
+    True.evalOnce shouldEqual None
     True.eval shouldEqual True
   }
 

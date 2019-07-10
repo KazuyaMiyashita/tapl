@@ -13,7 +13,12 @@ class PredSpec extends FlatSpec with Matchers {
     val term1a = True
     term1.eval shouldEqual term1a
 
-    Pred(term1).evalOnce shouldEqual Pred(term1a)
+    Pred(term1).eval shouldEqual Pred(term1a)
+  }
+
+  "pred true" should "be normal form" in {
+    Pred(True).isNormalForm shouldEqual true
+    Pred(True).eval shouldEqual Pred(True)
   }
 
 }

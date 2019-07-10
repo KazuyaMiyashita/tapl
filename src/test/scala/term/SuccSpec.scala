@@ -9,7 +9,7 @@ class SuccSpec extends FlatSpec with Matchers {
     val term1a = True
     term1.eval shouldEqual term1a
 
-    Succ(term1).evalOnce shouldEqual Succ(term1a)
+    Succ(term1).eval shouldEqual Succ(term1a)
   }
 
   "succ zero" should "be normal form" in {

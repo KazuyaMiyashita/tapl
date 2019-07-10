@@ -19,4 +19,10 @@ class IsZeroSpec extends FlatSpec with Matchers {
     IsZero(Succ(Succ(Zero))).eval shouldEqual False
   }
 
+  "iszero true" should "be normal form" in {
+    IsZero(True).isNormalForm shouldEqual true
+    IsZero(True).eval shouldEqual IsZero(True)
+  }
+  
+
 }

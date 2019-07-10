@@ -9,7 +9,7 @@ class FalseSpec extends FlatSpec with Matchers {
   }
 
   "The False object" should "not be evaluated" in {
-    False.evalOnce shouldEqual False
+    False.evalOnce shouldEqual None
     False.eval shouldEqual False
   }
 

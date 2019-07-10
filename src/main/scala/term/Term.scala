@@ -1,21 +1,18 @@
 package term
 
 sealed trait Term {
-  def evalOnce: Term
-  def isNormalForm: Boolean
-  
-  final def eval: Term = if (isNormalForm) this else evalOnce.eval
-  final def evalStackTrace: List[Term] = {
-    def proc(ts: List[Term]): List[Term] =
-      if (ts.head.isNormalForm) ts
-      else proc(ts.head.evalOnce :: ts)
-    proc(this :: Nil).reverse
-  }
+  def evalOnce: Option[Term]
+
+  final def evalStackTrace: LazyList[Term] = this #:: (evalOnce match {
+    case Some(next) => next.evalStackTrace
+    case None => LazyList.empty
+  })
+  final def eval: Term = evalStackTrace.last
+  final def isNormalForm: Boolean = evalOnce.isEmpty
 }
 
 trait Value extends Term {
-  override def evalOnce: Term = this
-  override def isNormalForm: Boolean = true
+  override def evalOnce: Option[Term] = None
 }
 
 case object True extends Term with Value
@@ -23,35 +20,32 @@ case object False extends Term with Value
 case object Zero extends Term with Value
 
 case class If(cond: Term, onTrue: Term, onFalse: Term) extends Term {
-  override def evalOnce: Term = cond match {
-    case True => onTrue
-    case False => onFalse
-    case cond => If(cond.evalOnce, onTrue, onFalse)
+  override def evalOnce: Option[Term] = cond match {
+    case True => Some(onTrue)
+    case False => Some(onFalse)
+    case cond => cond.evalOnce.map { nextCond => If(nextCond, onTrue, onFalse) }
   }
-  override def isNormalForm = false
 }
 
 case class IsZero(term: Term) extends Term {
-  override def evalOnce: Term = term match {
-    case Zero => True
-    case Succ(t: Term) => False
-    case term => IsZero(term.evalOnce)
+  override def evalOnce: Option[Term] = term match {
+    case Zero => Some(True)
+    case Succ(_: Term) => Some(False)
+    case term => term.evalOnce.map(IsZero(_))
   }
-  override def isNormalForm = false
 }
 
 case class Succ(term: Term) extends Term {
-  override def evalOnce: Term = Succ(term.evalOnce)
-  override def isNormalForm: Boolean = term.isNormalForm
+  override def evalOnce: Option[Term] = term.evalOnce.map(Succ(_))
+
 }
 
 case class Pred(term: Term) extends Term {
-  override def evalOnce: Term = term match {
-    case Zero => Zero
-    case Succ(t: Term) => t
-    case term => Pred(term.evalOnce)
+  override def evalOnce: Option[Term] = term match {
+    case Zero => Some(Zero)
+    case Succ(t: Term) => Some(t)
+    case term => term.evalOnce.map(Pred(_))
   }
-  override def isNormalForm: Boolean = false
 }
 
 
