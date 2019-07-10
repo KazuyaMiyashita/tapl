@@ -20,4 +20,12 @@ class SuccSpec extends FlatSpec with Matchers {
     Succ(IsZero(Zero)).isNormalForm shouldEqual false
   }
 
+  "succ (iszero (zero))" should "be deadlock" in {
+    Succ(IsZero(Zero)).eval.fullyEvaluated shouldEqual false
+  }
+
+  "succ (succ (zero))" should "not be deadlock" in {
+    Succ(Succ(Zero)).eval.fullyEvaluated shouldEqual true
+  }
+
 }

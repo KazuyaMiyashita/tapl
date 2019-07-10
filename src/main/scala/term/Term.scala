@@ -9,6 +9,7 @@ sealed trait Term {
   })
   final def eval: Term = evalStackTrace.last
   final def isNormalForm: Boolean = evalOnce.isEmpty
+  final def fullyEvaluated: Boolean = this.isInstanceOf[Value]
 }
 
 trait Value extends Term {
@@ -37,7 +38,6 @@ case class IsZero(term: Term) extends Term {
 
 case class Succ(term: Term) extends Term {
   override def evalOnce: Option[Term] = term.evalOnce.map(Succ(_))
-
 }
 
 case class Pred(term: Term) extends Term {

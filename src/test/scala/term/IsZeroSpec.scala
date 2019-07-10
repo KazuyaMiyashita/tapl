@@ -24,5 +24,12 @@ class IsZeroSpec extends FlatSpec with Matchers {
     IsZero(True).eval shouldEqual IsZero(True)
   }
   
+  "iszero true" should "be deadlock" in {
+    IsZero(True).eval.fullyEvaluated shouldEqual false
+  }
+
+  "iszero (succ (succ true))" should "not be deadlock" in {
+    IsZero(Succ(Succ(True))).eval.fullyEvaluated shouldEqual true
+  }
 
 }

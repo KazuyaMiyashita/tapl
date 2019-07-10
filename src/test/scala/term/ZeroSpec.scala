@@ -13,4 +13,8 @@ class ZeroSpec extends FlatSpec with Matchers {
     Zero.eval shouldEqual Zero
   }
 
+  "The Zero object" should "not be deadlock" in {
+    Zero.eval.fullyEvaluated shouldEqual true
+  }
+
 }

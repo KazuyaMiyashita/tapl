@@ -13,4 +13,8 @@ class TrueSpec extends FlatSpec with Matchers {
     True.eval shouldEqual True
   }
 
+  "The True object" should "not be deadlock" in {
+    True.eval.fullyEvaluated shouldEqual true
+  }
+
 }
