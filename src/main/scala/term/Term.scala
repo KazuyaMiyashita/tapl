@@ -23,7 +23,7 @@ case class If(cond: Term, onTrue: Term, onFalse: Term) extends Term {
   override def evalOnce: Option[Term] = cond match {
     case True => Some(onTrue)
     case False => Some(onFalse)
-    case cond => cond.evalOnce.map { nextCond => If(nextCond, onTrue, onFalse) }
+    case cond => cond.evalOnce.map(If(_, onTrue, onFalse))
   }
 }
 
