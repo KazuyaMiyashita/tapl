@@ -1,5 +1,5 @@
 
-import term._
+import chap3._
 
 object Main extends App {
 

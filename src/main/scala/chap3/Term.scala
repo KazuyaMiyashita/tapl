@@ -1,4 +1,4 @@
-package term
+package chap3
 
 sealed trait Term {
   def evalOnce: Option[Term]

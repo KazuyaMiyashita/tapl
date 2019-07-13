@@ -1,4 +1,4 @@
-package term
+package chap3
 
 import org.scalatest._
 
