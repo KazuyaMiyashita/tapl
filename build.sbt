@@ -5,8 +5,8 @@ ThisBuild / version          := "0.1.0-SNAPSHOT"
 ThisBuild / organization     := "com.example"
 ThisBuild / organizationName := "example"
 
-scalacOptions ++= "-deprecation" :: "-feature" :: "-Xlint" :: "-Ywarn-unused" :: Nil
-scalacOptions in (Compile, console) ~= {_.filterNot(_ == "-Ywarn-unused-import")}
+scalacOptions ++= "-deprecation" :: "-feature" :: "-Xlint" :: Nil
+scalacOptions in (Compile, console) ~= {_.filterNot(_ == "-Xlint")}
 
 lazy val root = (project in file("."))
   .settings(
