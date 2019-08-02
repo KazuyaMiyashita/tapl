@@ -22,4 +22,12 @@ class IfSpec extends FlatSpec with Matchers {
     If(Succ(Succ(Zero)), IsZero(Zero), False).eval shouldEqual If(Succ(Succ(Zero)), IsZero(Zero), False)
   }
 
+  "if succ(succ(zero)) then t2 else t3" should "be deadlock" in {
+    If(Succ(Succ(Zero)), IsZero(Zero), False).eval.fullyEvaluated shouldEqual false
+  }
+
+  "if (iszero (zero)) then t2 else t3" should "not be deadlock" in {
+    If(IsZero(Zero), IsZero(Zero), False).eval.fullyEvaluated shouldEqual true
+  }
+
 }

@@ -21,4 +21,12 @@ class PredSpec extends FlatSpec with Matchers {
     Pred(True).eval shouldEqual Pred(True)
   }
 
+  "pred true" should "be deadlock" in {
+    Pred(True).eval.fullyEvaluated shouldEqual false
+  }
+
+  "pred (succ (zero))" should "not be deadlock" in {
+    Pred(Succ(Zero)).eval.fullyEvaluated shouldEqual true
+  }
+
 }

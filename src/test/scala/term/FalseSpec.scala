@@ -13,4 +13,8 @@ class FalseSpec extends FlatSpec with Matchers {
     False.eval shouldEqual False
   }
 
+  "The False object" should "not be deadlock" in {
+    False.eval.fullyEvaluated shouldEqual true
+  }
+
 }
