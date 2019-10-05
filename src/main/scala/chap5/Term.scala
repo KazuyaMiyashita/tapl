@@ -1,8 +1,9 @@
 package chap5
 
 sealed trait Term {
-  def ->:(v: Variable) = Lambda(v, this)
-  def *(t: Term) = Applicate(this, t)
+  final def ->:(v: Variable) = Lambda(v, this)
+  final def *(t: Term) = Applicate(this, t)
+  final def eval(implicit evaluator: EvalutionStrategy): Term = evaluator.eval(this)
 }
 
 trait Variable extends Term
