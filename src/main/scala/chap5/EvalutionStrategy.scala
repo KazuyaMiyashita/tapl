@@ -1,5 +1,7 @@
 package chap5
 
 trait EvalutionStrategy {
-  def eval(term: Term): Term
+  def evalOnce(term: Term): Option[Term] = ???
+  def evalStackTrace(term: Term): LazyList[Term] = ???
+  def eval(term: Term): Term = ???
 }

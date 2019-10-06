@@ -2,7 +2,7 @@ package chap5
 
 import org.scalatest._
 import chap5.shortcut._
-import chap5.FullBetaReduction.evaluator
+import chap5.NormalOrderEvaluation.evaluator
 
 class IdSpec extends FlatSpec with Matchers {
 
